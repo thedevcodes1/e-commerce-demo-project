@@ -34,3 +34,9 @@ build/
 
 ### Environment and secrets ###
 .env
+
+### JVM crash logs and app logs ###
+hs_err_pid*.log
+replay_pid*.log
+logs/
+*.log
