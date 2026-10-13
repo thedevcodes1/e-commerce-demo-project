@@ -2,10 +2,10 @@ package com.online.shopping_app.service;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
+import com.online.shopping_app.dto.ProductRequest;
+import com.online.shopping_app.dto.ProductResponse;
 import com.online.shopping_app.exception.ProductNotFoundException;
 import com.online.shopping_app.model.Product;
 import com.online.shopping_app.repository.ProductRepository;
@@ -19,31 +19,51 @@ public class ProductService {
 		this.productRepository = productRepository;
 	}
 
-	public List<Product> getAllProducts() {
-		return productRepository.findAll();
+	public List<ProductResponse> getAllProducts() {
+		return productRepository.findAll().stream().map(this::response).toList();
 	}
 
-	public Product addProduct(Product product) {
-		return productRepository.save(product);
+	public ProductResponse addProduct(ProductRequest request) {
+		Product product = new Product();
+		saveProductDetails(request, product);
+		return response(productRepository.save(product));
 	}
 
-	public Product findProductById(Long id) {
+	public ProductResponse findProductById(Long id) {
+		return response(findEntity(id));
+	}
+
+	public ProductResponse updateProduct(Long id, ProductRequest request) {
+		Product product = findEntity(id);
+		saveProductDetails(request, product);
+		return response(productRepository.save(product));	
+	}
+
+	public void deleteProduct(Long id) {
+		findEntity(id);
+		productRepository.deleteById(id);
+	}
+	
+	private Product findEntity(Long id) {
 		return productRepository.findById(id)
 				.orElseThrow(() -> new ProductNotFoundException(id));
 	}
-
-	public Product updateProductById(Long id, Product newProduct) {
-		Product existingDetails = productRepository.findById(id)
-				.orElseThrow(() -> new ProductNotFoundException(id));
-		existingDetails.setName(newProduct.getName());
-		existingDetails.setDescription(newProduct.getDescription());
-		existingDetails.setPrice(newProduct.getPrice());
-		existingDetails.setStock(newProduct.getStock());
-		return productRepository.save(existingDetails);
+	
+	private ProductResponse response(Product product) {
+		return new ProductResponse(
+				product.getId(),
+				product.getName(),
+				product.getDescription(),
+				product.getPrice(),
+				product.getStock()
+		);				
 	}
-
-	public void deleteProductById(Long id) {
-		productRepository.deleteById(id);
+	
+	private void saveProductDetails(ProductRequest request, Product product) {
+		product.setName(request.name());
+		product.setDescription(request.description());
+		product.setPrice(request.price());
+		product.setStock(request.stock());
+		
 	}
-
 }
