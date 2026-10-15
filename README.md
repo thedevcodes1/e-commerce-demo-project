@@ -46,7 +46,7 @@ shopping-app/
 │           └── com/
 │               └── online/
 │                   └── shopping_app/
-│                      └── ShoppingAppApplication.java
+│                      └── ShoppingAppApplicationTests.java
 ├── .dockerignore
 ├── .env.sample
 ├── .gitattributes
