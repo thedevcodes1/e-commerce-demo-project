@@ -1,7 +1,7 @@
 package com.online.shopping_app.controller;
 
-import java.util.List;
-
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +30,8 @@ public class ProductController {
 	}
 
 	@GetMapping("/getAllProducts")
-	public List<ProductResponse> getAllProducts() {
-		return productService.getAllProducts();
+	public PagedModel<ProductResponse> getAllProducts(Pageable pageable) {
+		return new PagedModel<>(productService.getAllProducts(pageable));
 	}
 
 	@GetMapping("/getProductById/{id}")

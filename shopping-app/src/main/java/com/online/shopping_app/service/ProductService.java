@@ -1,6 +1,7 @@
 package com.online.shopping_app.service;
 
-import java.util.List;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,8 @@ public class ProductService {
 		this.productRepository = productRepository;
 	}
 
-	public List<ProductResponse> getAllProducts() {
-		return productRepository.findAll().stream().map(this::response).toList();
+	public Page<ProductResponse> getAllProducts(Pageable pageable) {
+		return productRepository.findAll(pageable).map(this::response);
 	}
 
 	public ProductResponse addProduct(ProductRequest request) {
