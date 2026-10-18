@@ -1,6 +1,6 @@
 # Shopping App
 
-Shopping App is a Spring Boot-based online shopping application that provides a REST API for managing products. It uses Java 21, Spring Boot, Spring Data JPA, and PostgreSQL, and includes Docker support for containerized deployment.
+Shopping App is a Spring Boot-based online shopping application that provides a REST API for managing products. It uses Java 21, Spring Boot, Spring Data JPA, and PostgreSQL, and includes Docker support for easy deployment.
 
 ## Features
 
@@ -37,10 +37,12 @@ shopping-app/
 │   │   │   └── com/
 │   │   │       └── online/
 │   │   │           └── shopping_app/
-│   │   │               ├── controller/
-│   │   │               ├── model/
-│   │   │               ├── repository/
-│   │   │               ├── service/
+│   │   │               ├── controller/           # REST controllers
+│   │   │               ├── dto/                  # Request/response DTOs
+│   │   │               ├── exception/            # Global and custom exceptions & handlers
+│   │   │               ├── model/                # JPA entities
+│   │   │               ├── repository/           # Spring Data JPA repositories
+│   │   │               ├── service/              # Business logic
 │   │   │               └── ShoppingAppApplication.java
 │   │   └── resources/
 │   │       └── application.properties
@@ -254,6 +256,8 @@ The project follows a standard Spring Boot layered architecture:
 - `service` — contains business logic
 - `repository` — handles data access using Spring Data JPA
 - `model` — defines entity classes
+- `dto` — request/response transfer objects to decouple API models from persistence
+- `exception` — custom exceptions and global exception handlers
 - `resources` — contains application configuration
 
 ## Recent changes (since 2026-10-10)
