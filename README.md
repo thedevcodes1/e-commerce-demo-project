@@ -75,7 +75,7 @@ Before running this project, make sure the following are installed:
 
 ## Database Setup and configuration
 
-### Install PostgreSQL
+#### Install PostgreSQL
 1. Download PostgreSQL from the official website and start the database service.
 2. Create the database:
 
@@ -97,8 +97,8 @@ Before running this project, make sure the following are installed:
    spring.jpa.show-sql=false
    ```
 
-### Credentials
-#### Option 1 : For Docker
+## Credentials
+### Option 1: For Docker
 
 Create a `.env` file using the sample file in the project folder `.env.sample`
 
@@ -112,13 +112,13 @@ DB_PASSWORD=password  #database password
 
 Thus the application will pick the values from `.env`.
 
-#### Option 2 : For Eclipse
+### Option 2: For Eclipse
 1. Go to eclipse
 2. Run -> Run as configurations -> Under 'Environment' -> Add the values
-<img width="897" height="391" alt="image" src="https://github.com/user-attachments/assets/ed16c04a-7546-4761-b784-05009acde36a" />
+<img width="688" height="461" alt="image" src="https://github.com/user-attachments/assets/31a3034a-7ab8-4ec0-ba9d-8baf4692cc93" />
+
 
 ## Running the Application
-
 ### Option 1: Run with Maven
 
 On Windows:
@@ -134,8 +134,6 @@ The application will start on:
 ```text
 http://localhost:8081
 ```
-
----
 
 ### Option 2: Run with Docker
 
@@ -156,6 +154,7 @@ docker run -p 8081:8081 shopping-app
 1. Import project in eclipse
 2. Expand the folder, you will see ShoppingApplication.java
 3. Right click on ShoppingApplication.java -> Run as -> Java Application
+
    
 ## API Endpoints
 
@@ -165,8 +164,7 @@ Base URL:
 http://localhost:8081
 ```
 
-### Product API
-
+#### Product API
 ```text
 GET    ->  /api/products/getAllProducts
 GET    ->  /api/products/getProductById/{id}
@@ -178,19 +176,19 @@ DELETE ->  /api/products/deleteProduct/{id}
 
 ## Sample Requests
 
-### Get all products
+#### Get all products
 
 ```http
 GET /api/products/getAllProducts?page=0&size=10
 ```
 
-### Get product by ID
+#### Get product by ID
 
 ```http
 GET /api/products/getProductById/1
 ```
 
-### Add a product
+#### Add a product
 
 ```http
 POST /api/products/addProduct
@@ -208,7 +206,7 @@ Example body:
 }
 ```
 
-### Update a product
+#### Update a product
 
 ```http
 PUT /api/products/updateProduct/1
@@ -226,7 +224,7 @@ Example body:
 }
 ```
 
-### Partial update a product
+#### Partial update a product
 
 ```http
 PATCH /api/products/updateProduct/1
@@ -242,7 +240,7 @@ Example body:
 }
 ```
 
-### Delete a product
+#### Delete a product
 
 ```http
 DELETE /api/products/deleteProduct/1
