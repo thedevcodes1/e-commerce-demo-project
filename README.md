@@ -11,6 +11,9 @@ Shopping App is a Spring Boot-based online shopping application that provides a 
 - Actuator support for monitoring
 - Docker-ready setup
 - Maven-based project build
+- Pagination support for product listings
+- Partial updates with PATCH for product modifications
+- Global exception handling for consistent API errors
 
 ## Tech Stack
 
@@ -112,8 +115,6 @@ Thus the application will pick the values from `.env`.
 2. Run -> Run as configurations -> Under 'Environment' -> Add the values
 <img width="897" height="391" alt="image" src="https://github.com/user-attachments/assets/ed16c04a-7546-4761-b784-05009acde36a" />
 
-
-
 ## Running the Application
 
 ### Option 1: Run with Maven
@@ -169,6 +170,7 @@ GET    ->  /api/products/getAllProducts
 GET    ->  /api/products/getProductById/{id}
 POST   ->  /api/products/addProduct
 PUT    ->  /api/products/updateProduct/{id}
+PATCH  ->  /api/products/updateProduct/{id}
 DELETE ->  /api/products/deleteProduct/{id}
 ```
 
@@ -177,7 +179,7 @@ DELETE ->  /api/products/deleteProduct/{id}
 ### Get all products
 
 ```http
-GET /api/products/getAllProducts
+GET /api/products/getAllProducts?page=0&size=10
 ```
 
 ### Get product by ID
@@ -199,7 +201,7 @@ Example body:
 {
   "name": "Laptop",
   "description": "Gaming laptop",
-  "price": 1200.50
+  "price": 1200.50,
   "stock": 10
 }
 ```
@@ -217,8 +219,24 @@ Example body:
 {
   "name": "Updated Laptop",
   "description": "Updated gaming laptop",
-  "price": 1350.00
+  "price": 1350.00,
   "stock": 15
+}
+```
+
+### Partial update a product
+
+```http
+PATCH /api/products/updateProduct/1
+Content-Type: application/json
+```
+
+Example body:
+
+```json
+{
+  "price": 1299.99,
+  "stock": 12
 }
 ```
 
@@ -238,6 +256,13 @@ The project follows a standard Spring Boot layered architecture:
 - `model` — defines entity classes
 - `resources` — contains application configuration
 
+## Recent changes (since 2026-10-10)
+
+- 2026-10-12 — Added a global exception handler to return consistent error responses and HTTP status codes.
+- 2026-10-13 — Introduced request and response DTOs for Product to decouple API models from persistence.
+- 2026-10-15 — Added pagination for product listing endpoints and updated the project README to match the latest structure.
+- 2026-10-18 — Added support for HTTP PATCH on Product to allow partial updates of product fields.
+
 ## Notes
 
 - The application uses JPA automatic schema updates via:
@@ -246,6 +271,7 @@ The project follows a standard Spring Boot layered architecture:
   ```
 - Validation is enabled for incoming request payloads.
 - The project is configured for PostgreSQL, so a database must be available before running the app.
+- Pagination and partial update support are included in the latest API updates.
 
 ## License
 
