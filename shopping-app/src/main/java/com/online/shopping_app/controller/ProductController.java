@@ -5,6 +5,7 @@ import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.online.shopping_app.dto.ProductPatchRequest;
 import com.online.shopping_app.dto.ProductRequest;
 import com.online.shopping_app.dto.ProductResponse;
 import com.online.shopping_app.service.ProductService;
@@ -48,6 +50,11 @@ public class ProductController {
 	@PutMapping("updateProduct/{id}")
 	public ProductResponse updateProduct(@PathVariable Long id, @Valid @RequestBody ProductRequest request) {
 		return productService.updateProduct(id, request);
+	}
+	
+	@PatchMapping("partialUpdateProduct/{id}")
+	public ProductResponse partialUpdateProduct(@PathVariable Long id, @Valid @RequestBody ProductPatchRequest request) {
+	    return productService.partialUpdateProduct(id, request);
 	}
 
 	@DeleteMapping("deleteProduct/{id}")

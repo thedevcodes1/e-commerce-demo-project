@@ -1,10 +1,10 @@
 package com.online.shopping_app.service;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
-
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.online.shopping_app.dto.ProductPatchRequest;
 import com.online.shopping_app.dto.ProductRequest;
 import com.online.shopping_app.dto.ProductResponse;
 import com.online.shopping_app.exception.ProductNotFoundException;
@@ -38,6 +38,15 @@ public class ProductService {
 		Product product = findEntity(id);
 		saveProductDetails(request, product);
 		return response(productRepository.save(product));	
+	}
+	
+	public ProductResponse partialUpdateProduct(Long id, ProductPatchRequest request) {
+	    Product product = findEntity(id);
+	    if (request.name() != null) product.setName(request.name());
+	    if (request.description() != null) product.setDescription(request.description());
+	    if (request.price() != null) product.setPrice(request.price());
+	    if (request.stock() != null) product.setStock(request.stock());
+	    return response(productRepository.save(product));
 	}
 
 	public void deleteProduct(Long id) {
