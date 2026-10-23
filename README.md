@@ -1,6 +1,6 @@
 # Shopping App
 
-Shopping App is a Spring Boot-based online shopping application that provides a REST API for managing products. It uses Java 21, Spring Boot, Spring Data JPA, and PostgreSQL, and includes Docker support for easy deployment.
+Shopping App is a Spring Boot-based online shopping application that provides a REST API for managing products. It uses Java 21, Spring Boot, Spring Data JPA, and PostgreSQL, and includes Docker support and unit testing workflows.
 
 ## Features
 
@@ -14,6 +14,7 @@ Shopping App is a Spring Boot-based online shopping application that provides a 
 - Pagination support for product listings
 - Partial updates with PATCH for product modifications
 - Global exception handling for consistent API errors
+- Unit testing support with JUnit 5 and Spring Boot test starters
 
 ## Tech Stack
 
@@ -24,6 +25,7 @@ Shopping App is a Spring Boot-based online shopping application that provides a 
 - Spring Data JPA
 - PostgreSQL
 - Docker
+- JUnit 5
 
 ## Project Structure
 
@@ -60,8 +62,28 @@ shopping-app/
 ├── pom.xml
 ├── mvnw
 ├── mvnw.cmd
-└── README.md
+├── README.md
 ```
+
+## Testing
+
+This project includes unit tests and uses JUnit 5 with Spring Boot testing support.
+
+Run the full unit test suite:
+
+```bash
+cd shopping-app
+mvn test
+```
+
+Run a specific test class:
+
+```bash
+cd shopping-app
+mvn -Dtest=ShoppingAppApplicationTests test
+```
+
+Test reports are generated under `shopping-app/target/surefire-reports/`.
 
 ## Prerequisites
 
@@ -155,7 +177,7 @@ docker run -p 8081:8081 shopping-app
 2. Expand the folder, you will see ShoppingApplication.java
 3. Right click on ShoppingApplication.java -> Run as -> Java Application
 
-   
+    
 ## API Endpoints
 
 Base URL:
@@ -264,6 +286,7 @@ The project follows a standard Spring Boot layered architecture:
 - 2026-10-13 — Introduced request and response DTOs for Product to decouple API models from persistence.
 - 2026-10-15 — Added pagination for product listing endpoints and updated the project README to match the latest structure.
 - 2026-10-18 — Added support for HTTP PATCH on Product to allow partial updates of product fields.
+- 2026-10-20 — Documented unit testing workflow and Maven commands for running tests.
 
 ## Notes
 
@@ -274,6 +297,7 @@ The project follows a standard Spring Boot layered architecture:
 - Validation is enabled for incoming request payloads.
 - The project is configured for PostgreSQL, so a database must be available before running the app.
 - Pagination and partial update support are included in the latest API updates.
+- Unit tests can be executed with `mvn test` to validate application behavior during development.
 
 ## License
 
