@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ApiError> handleNotFound(ProductNotFoundException ex, HttpServletRequest request) {
-    	logger.error(ex.getMessage());
+    	//logger.error(ex.getMessage());
         return build(HttpStatus.NOT_FOUND, ex.getMessage(), request, Map.of());
     }
 
